@@ -11,6 +11,9 @@
         android:theme="@style/Theme.Reservation">
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".crate_compte"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
