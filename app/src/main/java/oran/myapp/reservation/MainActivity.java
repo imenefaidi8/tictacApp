@@ -3,10 +3,12 @@ package oran.myapp.reservation;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText mailEdit, PassEdit;
     private Button LoginButton;
+    private TextView AddAccount;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance ( );
 
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         mailEdit = findViewById ( R.id.EmailEdit );
         PassEdit = findViewById ( R.id.passwordEdit );
         LoginButton = findViewById ( R.id.loginButton );
+        AddAccount = findViewById ( R.id.AddAccount );
 
 
         LoginButton.setOnClickListener ( new View.OnClickListener ( ) {
@@ -40,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         } );
+
+        AddAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
