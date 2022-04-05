@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                btn_RegistreFromFirebase ( );
+
 
             }
         } );
