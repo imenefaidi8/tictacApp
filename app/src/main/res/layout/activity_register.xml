@@ -19,6 +19,7 @@
         >
 
         <EditText
+            android:id="@+id/fullname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint=" Full Name"
@@ -39,13 +40,13 @@
         >
 
         <EditText
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ems="10"
             android:hint=" user Name"
             android:inputType="text"
-            android:ems="10"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
     </com.google.android.material.textfield.TextInputLayout><com.google.android.material.textfield.TextInputLayout
     android:layout_width="409dp"
     android:layout_height="wrap_content"
@@ -58,6 +59,7 @@
     >
 
     <EditText
+        android:id="@+id/txtemail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint=" email"
@@ -77,6 +79,7 @@
     >
 
     <EditText
+        android:id="@+id/txtpassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint=" password"
@@ -142,11 +145,12 @@
     </RadioGroup>
 
     <Button
+        android:id="@+id/btn_registre"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/button_rounded"
-        android:text="sign up"
+        android:text="registre"
         android:textColor="#ffffff"
         android:textSize="22sp"
 
