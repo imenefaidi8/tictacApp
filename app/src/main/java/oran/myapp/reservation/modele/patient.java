@@ -1,11 +1,30 @@
 package oran.myapp.reservation.modele;
 
 public class patient {
-    private String nom, prenom,addresse,email,password;
+    private String uid ,nom, prenom,addresse,email,password;
     private String age,telephone;
 
+    public patient() {
+    }
 
+    public patient(String uid ,String nom, String prenom, String addresse, String email, String password, String age, String telephone) {
+       this.uid=uid;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.addresse = addresse;
+        this.email = email;
+        this.password = password;
+        this.age = age;
+        this.telephone = telephone;
+    }
 
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getNom() {
         return nom;

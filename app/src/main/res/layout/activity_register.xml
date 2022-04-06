@@ -3,190 +3,144 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
- >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="111dp">
+        android:layout_marginEnd="16dp"
 
-        <EditText
+      >
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/fullname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=" Full Name"
+            android:backgroundTint="#fff"
+            android:hint="nom"
             android:inputType="text"
             android:textSize="10sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp">
 
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="111dp">
-
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=" user Name"
+            android:backgroundTint="#fff"
+            android:hint="prenom"
             android:inputType="text"
             android:textSize="10sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp">
 
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="111dp">
-
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtemail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:backgroundTint="#fff"
             android:hint=" email"
             android:inputType="text"
             android:textSize="10sp" />
     </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtAdress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#fff"
+            android:hint=" Adress"
+            android:inputType="text"
+            android:textSize="10sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp">
 
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="111dp">
-
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:backgroundTint="#fff"
             android:hint=" password"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:textSize="10sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
+
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp">
 
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="111dp">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=" confirm password"
-            android:textColor="@color/black"
-            android:textSize="10sp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="111dp">
-
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:backgroundTint="#fff"
             android:hint=" age"
-            android:inputType="text"
+            android:inputType="number"
             android:textSize="10sp" />
     </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="111dp">
 
-        <EditText
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:backgroundTint="#fff"
             android:hint=" telephonr"
-            android:inputType="text"
+            android:inputType="number"
             android:textSize="10sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Gender:   "
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:text="Male   "
-            android:textSize="15sp"
-
-            />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:text="female"
-            android:textSize="15sp"
-
-            />
-
-
-    </RadioGroup>
 
     <Button
         android:id="@+id/btn_registre"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="50dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/button_rounded"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text="registre"
         android:textColor="#ffffff"
-        android:textSize="22sp"
+        android:textSize="14sp"
 
         />
 </LinearLayout>

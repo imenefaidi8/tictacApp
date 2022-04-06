@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword ( Tmail,TPass ).addOnSuccessListener ( new OnSuccessListener<AuthResult> ( ) {
             @Override
             public void onSuccess(AuthResult authResult) {
+
                 progressDialog.dismiss();
                 Toast.makeText ( MainActivity.this," Sign in  successfully !",Toast.LENGTH_SHORT ).show ();
             }
