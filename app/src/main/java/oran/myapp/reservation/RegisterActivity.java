@@ -15,11 +15,16 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText txt_fullname,txt_username,txt_email,txt_password;
     private Button btn_Registre;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance ( );
+
+    private FirebaseDatabase Root=FirebaseDatabase.getInstance ();
+    private DatabaseReference users=Root.getReference ("users");
     private ProgressDialog progressDialog;
 
     @Override
