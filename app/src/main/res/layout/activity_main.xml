@@ -11,6 +11,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_gravity="center"
+        android:src="@drawable/doctor"
         android:layout_marginTop="64dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -21,7 +22,7 @@
         android:layout_marginEnd="16dp"
         android:backgroundTint="#fff"
         >
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/EmailEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,7 +40,7 @@
         android:layout_marginEnd="16dp"
         android:backgroundTint="#fff"
         >
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
