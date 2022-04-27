@@ -17,6 +17,7 @@ import oran.myapp.reservation.R;
 import oran.myapp.reservation.modele.Service;
 
 public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ServicesViewHolder>{
+
     private ArrayList<Service> SAL ;
     private Context context;
     private ServiceClickListener listener ;
@@ -36,7 +37,9 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
 
     @Override
     public void onBindViewHolder(@NonNull ServicesViewHolder holder, int position) {
+
     holder.Service_ImageView.setImageResource(SAL.get(position).getPhoto_res());
+
     holder.Service_TextView.setText(SAL.get(position).getName());
     }
 
@@ -52,6 +55,14 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
             super(itemView);
             Service_ImageView = itemView.findViewById(R.id.Service_ImageView);
             Service_TextView = itemView.findViewById(R.id.Service_TextView);
+
+            // Back nClicku Kul item w y3ayet l OnServiceClick mn Listener
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.OnServiceClick(getAdapterPosition());
+                }
+            });
         }
     }
 

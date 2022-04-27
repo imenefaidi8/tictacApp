@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private splashScreen inst = splashScreen.getInst();
 
+
+
     private FirebaseDatabase Root = FirebaseDatabase.getInstance("https://pfelicence-615fe-default-rtdb.europe-west1.firebasedatabase.app/");
     private DatabaseReference usersRef = Root.getReference("users");
 
@@ -99,12 +101,19 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, " Sign in  successfully !", Toast.LENGTH_SHORT).show();
 
                 // njibu Data nta3 l user mn Realtime data base
-                usersRef.child(authResult.getUser().getUid()).addValueEventListener(new ValueEventListener() {
+
+
+                usersRef.child(authResult.getUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                         if (!snapshot.exists()) return;
+
                         patient UserData = snapshot.getValue(patient.class);
+
                         inst.setUserData(UserData);
+
+
                         Intent i = new Intent(MainActivity.this, DashboardActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(i);

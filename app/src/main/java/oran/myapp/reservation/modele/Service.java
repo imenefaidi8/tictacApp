@@ -28,4 +28,5 @@ public class Service {
     public void setPhoto_res(int photo_res) {
         this.photo_res = photo_res;
     }
+
 }
