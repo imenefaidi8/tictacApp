@@ -2,7 +2,7 @@ package oran.myapp.reservation.modele;
 
 public class patient {
     private String uid ,nom, prenom,addresse,email,password;
-    private String age,telephone;
+    private String age,telephone , photoUrl;
 
     public patient() {
     }
@@ -16,6 +16,14 @@ public class patient {
         this.password = password;
         this.age = age;
         this.telephone = telephone;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     public String getUid() {

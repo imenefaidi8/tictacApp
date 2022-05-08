@@ -15,54 +15,54 @@ import java.util.ArrayList;
 
 import oran.myapp.reservation.R;
 import oran.myapp.reservation.modele.Service;
+import oran.myapp.reservation.modele.medecin;
 
-public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ServicesViewHolder>{
+public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ServicesViewHolder> {
 
-    private ArrayList<Service> SAL ;
+    private ArrayList<medecin> MAL;
     private Context context;
-    private ServiceClickListener listener ;
+    private ServiceClickListener listener;
 
-    public ServicesAdapter( Context context, ArrayList<Service> SAL, ServiceClickListener listener) {
+    public ServicesAdapter(Context context , ArrayList<medecin> MAL , ServiceClickListener listener) {
         this.context = context;
-        this.SAL = SAL;
+        this.MAL = MAL;
         this.listener = listener;
     }
 
     @NonNull
     @Override
-    public ServicesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_services,parent,false);
-        return new ServicesViewHolder(view);
+    public ServicesViewHolder onCreateViewHolder(@NonNull ViewGroup parent , int viewType) {
+        View view = LayoutInflater.from ( parent.getContext ( ) ).inflate ( R.layout.list_item_services , parent , false );
+        return new ServicesViewHolder ( view );
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ServicesViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ServicesViewHolder holder , int position) {
 
-    holder.Service_ImageView.setImageResource(SAL.get(position).getPhoto_res());
-
-    holder.Service_TextView.setText(SAL.get(position).getName());
+        holder.Service_TextView.setText ( MAL.get ( position ).getService ( ) );
     }
 
     @Override
     public int getItemCount() {
-        return SAL.size();
+        return MAL.size ( );
     }
 
-    public class ServicesViewHolder extends RecyclerView.ViewHolder{
-           private ImageView Service_ImageView;
-           private TextView Service_TextView ;
+    public class ServicesViewHolder extends RecyclerView.ViewHolder {
+        private ImageView Service_ImageView;
+        private TextView Service_TextView;
+
         public ServicesViewHolder(@NonNull View itemView) {
-            super(itemView);
-            Service_ImageView = itemView.findViewById(R.id.Service_ImageView);
-            Service_TextView = itemView.findViewById(R.id.Service_TextView);
+            super ( itemView );
+            Service_ImageView = itemView.findViewById ( R.id.Service_ImageView );
+            Service_TextView = itemView.findViewById ( R.id.Service_TextView );
 
             // Back nClicku Kul item w y3ayet l OnServiceClick mn Listener
-            itemView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener ( new View.OnClickListener ( ) {
                 @Override
                 public void onClick(View view) {
-                    listener.OnServiceClick(getAdapterPosition());
+                    listener.OnServiceClick ( getAdapterPosition ( ) );
                 }
-            });
+            } );
         }
     }
 

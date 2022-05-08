@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
                 usersRef.child(authResult.getUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
+                    /* snapchat fiha ga3 les donne */
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                         if (!snapshot.exists()) return;

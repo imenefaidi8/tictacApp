@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import oran.myapp.reservation.MainActivity;
 import oran.myapp.reservation.R;
 import oran.myapp.reservation.modele.patient;
-
+/*nchofo ila rah mconnecte ou non */
 public class splashScreen extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -84,7 +84,7 @@ public class splashScreen extends AppCompatActivity {
                 }
             }
             // 3000 means this code will not run until the 3000 ms goes on
-        }, 3000);
+        }, 1000);
 
     }
 
