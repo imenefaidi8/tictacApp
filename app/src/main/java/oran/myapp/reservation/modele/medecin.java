@@ -2,7 +2,11 @@ package oran.myapp.reservation.modele;
 
 public class medecin {
 
-    private String id , nom , prenom , room,service,email,password;
+    private String id , nom , prenom  ,email,password;
+
+    private int service,room;
+
+    private float lat,lang;
 
 
 
@@ -10,7 +14,7 @@ public class medecin {
     public medecin() {
     }
 
-    public medecin(String id , String nom , String prenom , String room , String service , String email , String password) {
+    public medecin(String id , String nom , String prenom , int room , int service , String email , String password) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -18,6 +22,22 @@ public class medecin {
         this.service = service;
         this.email = email;
         this.password = password;
+    }
+
+    public float getLat() {
+        return lat;
+    }
+
+    public void setLat(float lat) {
+        this.lat = lat;
+    }
+
+    public float getLang() {
+        return lang;
+    }
+
+    public void setLang(float lang) {
+        this.lang = lang;
     }
 
     public String getId() {
@@ -44,19 +64,19 @@ public class medecin {
         this.prenom = prenom;
     }
 
-    public String getRoom() {
+    public int getRoom() {
         return room;
     }
 
-    public void setRoom(String room) {
+    public void setRoom(int room) {
         this.room = room;
     }
 
-    public String getService() {
+    public int getService() {
         return service;
     }
 
-    public void setService(String service) {
+    public void setService(int service) {
         this.service = service;
     }
 

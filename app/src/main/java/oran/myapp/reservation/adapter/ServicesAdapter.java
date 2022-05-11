@@ -19,11 +19,11 @@ import oran.myapp.reservation.modele.medecin;
 
 public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ServicesViewHolder> {
 
-    private ArrayList<medecin> MAL;
+    private ArrayList<Service> MAL;
     private Context context;
     private ServiceClickListener listener;
 
-    public ServicesAdapter(Context context , ArrayList<medecin> MAL , ServiceClickListener listener) {
+    public ServicesAdapter(Context context , ArrayList<Service> MAL , ServiceClickListener listener) {
         this.context = context;
         this.MAL = MAL;
         this.listener = listener;
@@ -39,7 +39,8 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
     @Override
     public void onBindViewHolder(@NonNull ServicesViewHolder holder , int position) {
 
-        holder.Service_TextView.setText ( MAL.get ( position ).getService ( ) );
+        holder.Service_TextView.setText ( MAL.get ( position ).getName () );
+        holder.Service_ImageView.setImageResource ( MAL.get ( position).getPhoto_res () );
     }
 
     @Override

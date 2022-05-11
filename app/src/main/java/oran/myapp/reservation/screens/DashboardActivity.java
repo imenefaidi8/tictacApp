@@ -44,7 +44,7 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
         , RendezVousAdapter.RendezVousClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView Srcv, Rrvc;
-    private ArrayList<medecin> SAL = new ArrayList<> ( );
+    private ArrayList<Service> SAL = new ArrayList<> ( );
     private ArrayList<RendezVous> RAL = new ArrayList<> ( );
     private ServicesAdapter SAdapter;
     private ImageView MenuIcon;
@@ -64,6 +64,8 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_dashboard );
+
+
         init ( );
 
         MenuIcon.setOnClickListener ( new View.OnClickListener ( ) {
@@ -74,6 +76,7 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
                 else drawerLayout.openDrawer ( GravityCompat.START );
             }
         } );
+
 
         // Navigation VIew Item CLicks
         nav_view.setNavigationItemSelectedListener ( this );
@@ -169,9 +172,9 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
         View view = LayoutInflater.from ( this ).inflate ( R.layout.dialog_booking , null , false );
         AlertDialog dialog = builder.create ( );
 
-        builder.setView(view);
-        builder.setCancelable(true);
-        builder.show();
+        builder.setView ( view );
+        builder.setCancelable ( true );
+        builder.show ( );
 
     }
 
@@ -182,6 +185,13 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
         MenuIcon = findViewById ( R.id.MenuIcon );
         drawerLayout = findViewById ( R.id.drawerLayout );
         nav_view = findViewById ( R.id.nav_view );
+
+        SAL.add ( new Service ( "protasse" , R.drawable.doctor ) );
+        SAL.add ( new Service ( "PARU & PATU" , R.drawable.doctor ) );
+        SAL.add ( new Service ( "Odontologie CNSV " , R.drawable.doctor ) );
+        SAL.add ( new Service ( "ODF" , R.drawable.doctor ) );
+
+
         SAdapter = new ServicesAdapter ( this , SAL , this );
         RAdapter = new RendezVousAdapter ( this , RAL , this );
 
@@ -210,13 +220,15 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
     @Override
     public void OnServiceClick(int position) {
         Toast.makeText ( DashboardActivity.this , "Service " + position + 1 + " Clicked !" , Toast.LENGTH_SHORT ).show ( );
-        openBookingDialog();
-    }
+        Intent intent = new Intent ( DashboardActivity.this , MedcinListActivity.class );
+        intent.putExtra ( "service" , position );
+        startActivity ( intent);
+           }
 
     @Override
     public void OnRendezVousClick(int position) {
         Toast.makeText ( DashboardActivity.this , "RendezVous " + position + 1 + " Clicked !" , Toast.LENGTH_SHORT ).show ( );
-        openBookingDialog();
+        // openBookingDialog();
     }
 
     @Override
@@ -225,13 +237,14 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
         switch (item.getItemId ( )) {
 
             case R.id.qrcode:
-
+                Intent intent2 = new Intent ( DashboardActivity.this , QrCodeActivity.class );
+                startActivity ( intent2 );
                 break;
+
 
             case R.id.profile:
 
                 break;
-
             case R.id.logout:
                 mAuth.signOut ( );
                 Intent intent = new Intent ( DashboardActivity.this , MainActivity.class );
