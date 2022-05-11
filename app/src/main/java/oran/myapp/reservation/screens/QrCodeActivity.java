@@ -30,7 +30,8 @@ public class QrCodeActivity extends AppCompatActivity {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_qr_code );
         QrCodeImage = findViewById(R.id.QrCodeClient);
-
+        color_black = getResources().getColor(R.color.black);
+        color_white = getResources().getColor(R.color.white);
         ObjectToImageEnCode(userData.getUid ());
     }
 
