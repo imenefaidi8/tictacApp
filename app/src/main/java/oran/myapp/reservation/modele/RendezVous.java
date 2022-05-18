@@ -1,30 +1,45 @@
 package oran.myapp.reservation.modele;
 
 public class RendezVous {
-    private String id,Doctor , date , reason;
-    private int  stage , room,state;
+    private String id,did,date,time , pid ;
+    private int  state;
 
 
     public RendezVous() {
     }
 
-    public RendezVous(String id , String doctor, String date, String reason, int stage, int room,int state) {
+    public RendezVous(String id , String did,String pid , String date,String time, int state) {
         this.id=id;
-        Doctor = doctor;
+        this.did = did;
         this.date = date;
-        this.reason = reason;
-        this.stage = stage;
-        this.room = room;
+
         this.state=state;
+        this.pid=pid;
+        this.time=time;
     }
 
-
-    public String getDoctor() {
-        return Doctor;
+    public String getTime() {
+        return time;
     }
 
-    public void setDoctor(String doctor) {
-        Doctor = doctor;
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getDid() {
+        return did;
+    }
+
+    public void setDid(String did) {
+        this.did = did;
+    }
+
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
     }
 
     public String getDate() {
@@ -35,29 +50,7 @@ public class RendezVous {
         this.date = date;
     }
 
-    public String getReason() {
-        return reason;
-    }
 
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public int getStage() {
-        return stage;
-    }
-
-    public void setStage(int stage) {
-        this.stage = stage;
-    }
-
-    public int getRoom() {
-        return room;
-    }
-
-    public void setRoom(int room) {
-        this.room = room;
-    }
 
     public int getState() {
         return state;

@@ -28,8 +28,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import oran.myapp.reservation.MainActivity;
 import oran.myapp.reservation.R;
@@ -86,82 +91,48 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
 
     }
 
+//    RendezVous helper = snapshot.getValue ( RendezVous.class );
+//
+//                RAL.add ( helper );
+//
+//                RAdapter.notifyDataSetChanged ( );
 
     private void GetRendezVous() {
-        rdvRef.child ( userData.getUid ( ) ).addChildEventListener ( new ChildEventListener ( ) {
+        rdvRef.orderByChild ( "pid" ).equalTo ( userData.getUid ( ) ).addValueEventListener ( new ValueEventListener ( ) {
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot , @Nullable String previousChildName) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (!snapshot.exists ( )) {
+                    Toast.makeText ( DashboardActivity.this , "Not Exist" , Toast.LENGTH_SHORT ).show ( );
                     return;
                 }
-                RendezVous helper = snapshot.getValue ( RendezVous.class );
+                      RAL.clear ();
+                for (DataSnapshot ds : snapshot.getChildren ( )) {
+                    RendezVous helper = ds.getValue ( RendezVous.class );
+                    String sDate1=helper.getDate ()+" "+helper.getTime ();
+                    //current date
+                    Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SS");
+                    String currDate = sdf.format(cal.getTime());
+                    Date curDate=new SimpleDateFormat ("dd-MM-yyyy hh:mm").parse(currDate);
+                    try {
+                        Date date1=new SimpleDateFormat ("dd-MM-yyyy hh:mm").parse(sDate1);
+                        if(date1.before ( curDate )){
+                            Toast.makeText ( DashboardActivity.this , "old one " , Toast.LENGTH_SHORT ).show ( );
 
-                RAL.add ( helper );
-
-                RAdapter.notifyDataSetChanged ( );
-            }
-
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot , @Nullable String previousChildName) {
-                if (!snapshot.exists ( )) {
-                    Log.e ( "onChanged" , "false" );
-                    return;
-                }
-                Log.e ( "onChanged" , "true" );
-                RendezVous helper = snapshot.getValue ( RendezVous.class );
-
-                for (int i = 0; i < RAL.size ( ); i++) {
-
-                    if (RAL.get ( i ).getId ( ).equals ( helper.getId ( ) )) {
-
-                        RAL.remove ( i );
-                        RAL.add ( i , helper );
-                        RAdapter.notifyDataSetChanged ( );
-
-
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace ( );
                     }
-
+                    RAL.add ( helper );
+                    RAdapter.notifyDataSetChanged ( );
                 }
-                if (RAL.size ( ) == 0) {
-                    Rrvc.setVisibility ( View.GONE );
-
-                }
-
-            }
-
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.exists ( )) {
-                    Log.e ( "onRemoved" , "false" );
-                    return;
-                }
-                Log.e ( "onRemoved" , "true" );
-                RendezVous helper = snapshot.getValue ( RendezVous.class );
-
-                for (int i = 0; i < RAL.size ( ); i++) {
-
-                    if (RAL.get ( i ).getId ( ).equals ( helper.getId ( ) )) {
-
-                        RAL.remove ( i );
-
-
-                    }
-
-                }
-                RAdapter.notifyDataSetChanged ( );
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot , @Nullable String previousChildName) {
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText ( DashboardActivity.this , "error: " + error.getMessage ( ) , Toast.LENGTH_SHORT ).show ( );
+
             }
         } );
     }
@@ -222,8 +193,8 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
         Toast.makeText ( DashboardActivity.this , "Service " + position + 1 + " Clicked !" , Toast.LENGTH_SHORT ).show ( );
         Intent intent = new Intent ( DashboardActivity.this , MedcinListActivity.class );
         intent.putExtra ( "service" , position );
-        startActivity ( intent);
-           }
+        startActivity ( intent );
+    }
 
     @Override
     public void OnRendezVousClick(int position) {

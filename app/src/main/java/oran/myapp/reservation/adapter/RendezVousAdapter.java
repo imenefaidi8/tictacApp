@@ -41,9 +41,6 @@ public class RendezVousAdapter extends RecyclerView.Adapter<RendezVousAdapter.Re
     public void onBindViewHolder(@NonNull RendezVousViewHolder holder, int position) {
         holder.date.setText(RAL.get(position).getDate());
         holder.doctor.setText("Doctor : "+RAL.get(position).getDoctor());
-        holder.stage.setText("stage   : "+RAL.get(position).getStage());
-        holder.room.setText("room    : "+RAL.get(position).getRoom());
-        holder.reason.setText("reason : "+RAL.get(position).getReason());
         switch (RAL.get(position).getState()){
             case 2 :
                 holder.statusLinear.setBackgroundColor(Color.RED);
@@ -74,16 +71,14 @@ public class RendezVousAdapter extends RecyclerView.Adapter<RendezVousAdapter.Re
 
     public class RendezVousViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView date,doctor,stage,room,reason ;
+        private TextView date,doctor;
         private LinearLayout statusLinear;
         public RendezVousViewHolder(@NonNull View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.date);
             statusLinear = itemView.findViewById(R.id.statusLinear);
             doctor = itemView.findViewById(R.id.doctor);
-            stage = itemView.findViewById(R.id.stage);
-            room = itemView.findViewById(R.id.room);
-            reason = itemView.findViewById(R.id.reason);
+
             // Back nClicku Kul item w y3ayet l OnServiceClick mn Listener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
