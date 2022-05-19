@@ -1,5 +1,6 @@
 package oran.myapp.reservation.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
@@ -18,15 +19,19 @@ import java.util.ArrayList;
 import oran.myapp.reservation.R;
 import oran.myapp.reservation.modele.RendezVous;
 import oran.myapp.reservation.modele.Service;
+import oran.myapp.reservation.modele.medecin;
+
 public class RendezVousAdapter extends RecyclerView.Adapter<RendezVousAdapter.RendezVousViewHolder> {
 
     private ArrayList<RendezVous> RAL ;
+    private ArrayList<medecin> MAL ;
     private Context context;
     private RendezVousClickListener listener ;
 
-    public RendezVousAdapter( Context context, ArrayList<RendezVous> RAL, RendezVousClickListener listener) {
+    public RendezVousAdapter( Context context, ArrayList<RendezVous> RAL,ArrayList<medecin> MAL, RendezVousClickListener listener) {
         this.context = context;
         this.RAL = RAL;
+        this.MAL = MAL;
         this.listener = listener;
     }
 
@@ -37,24 +42,29 @@ public class RendezVousAdapter extends RecyclerView.Adapter<RendezVousAdapter.Re
         return new RendezVousViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RendezVousViewHolder holder, int position) {
-        holder.date.setText(RAL.get(position).getDate());
-        holder.doctor.setText("Doctor : "+RAL.get(position).getDoctor());
+        holder.date.setText(RAL.get(position).getDate()+" "+RAL.get(position).getTime());
+        if(MAL.size()>position)
+        holder.doctor.setText("Doctor : "+MAL.get(position).getNom()+" "+MAL.get(position).getPrenom());
         switch (RAL.get(position).getState()){
             case 2 :
                 holder.statusLinear.setBackgroundColor(Color.RED);
-                Log.e("case","0");
+                holder.date.setTextColor(Color.WHITE);
+                Log.e("case","2");
             break ;
 
             case 1 :
                 holder.statusLinear.setBackgroundColor(Color.GREEN);
+                holder.date.setTextColor(Color.WHITE);
                 Log.e("case","1");
                 break ;
 
             case 0 :
                 holder.statusLinear.setBackgroundColor(Color.YELLOW);
-                Log.e("case","2");
+                holder.date.setTextColor(Color.GRAY);
+                Log.e("case","0");
                 break ;
 
 

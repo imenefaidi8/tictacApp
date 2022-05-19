@@ -1,7 +1,16 @@
 package oran.myapp.reservation.screens;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -9,21 +18,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 import oran.myapp.reservation.MainActivity;
 import oran.myapp.reservation.R;
@@ -49,45 +46,47 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
         , RendezVousAdapter.RendezVousClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView Srcv, Rrvc;
-    private ArrayList<Service> SAL = new ArrayList<> ( );
-    private ArrayList<RendezVous> RAL = new ArrayList<> ( );
+    private ArrayList<Service> SAL = new ArrayList<>();
+    private ArrayList<RendezVous> RAL = new ArrayList<>();
+    private ArrayList<medecin> MAL = new ArrayList<>();
     private ServicesAdapter SAdapter;
     private ImageView MenuIcon;
     private DrawerLayout drawerLayout;
     private NavigationView nav_view;
     private RendezVousAdapter RAdapter;
     // Firebase Objects
-    private FirebaseDatabase ROOT = FirebaseDatabase.getInstance ( "https://pfelicence-615fe-default-rtdb.europe-west1.firebasedatabase.app/" );
-    private DatabaseReference rdvRef = ROOT.getReference ( "RendezVous" );
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance ( );
+    private FirebaseDatabase ROOT = FirebaseDatabase.getInstance("https://pfelicence-615fe-default-rtdb.europe-west1.firebasedatabase.app/");
+    private DatabaseReference rdvRef = ROOT.getReference("RendezVous");
+    private DatabaseReference medRef = ROOT.getReference("medcin");
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     // User Data
-    private splashScreen inst = splashScreen.getInst ( );
-    private patient userData = inst.GetUserData ( );
+    private splashScreen inst = splashScreen.getInst();
+    private patient userData = inst.GetUserData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate ( savedInstanceState );
-        setContentView ( R.layout.activity_dashboard );
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_dashboard);
 
 
-        init ( );
+        init();
 
-        MenuIcon.setOnClickListener ( new View.OnClickListener ( ) {
+        MenuIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (drawerLayout.isDrawerOpen ( GravityCompat.START ))
-                    drawerLayout.closeDrawer ( GravityCompat.START );
-                else drawerLayout.openDrawer ( GravityCompat.START );
+                if (drawerLayout.isDrawerOpen(GravityCompat.START))
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                else drawerLayout.openDrawer(GravityCompat.START);
             }
-        } );
+        });
 
 
         // Navigation VIew Item CLicks
-        nav_view.setNavigationItemSelectedListener ( this );
+        nav_view.setNavigationItemSelectedListener(this);
 
 
-        GetRendezVous ( );
+        GetRendezVous();
 
     }
 
@@ -98,118 +97,144 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
 //                RAdapter.notifyDataSetChanged ( );
 
     private void GetRendezVous() {
-        rdvRef.orderByChild ( "pid" ).equalTo ( userData.getUid ( ) ).addValueEventListener ( new ValueEventListener ( ) {
+        rdvRef.orderByChild("pid").equalTo(userData.getUid()).addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.exists ( )) {
-                    Toast.makeText ( DashboardActivity.this , "Not Exist" , Toast.LENGTH_SHORT ).show ( );
+                if (!snapshot.exists()) {
+                    Toast.makeText(DashboardActivity.this, "Not Exist", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                      RAL.clear ();
-                for (DataSnapshot ds : snapshot.getChildren ( )) {
-                    RendezVous helper = ds.getValue ( RendezVous.class );
-                    String sDate1=helper.getDate ()+" "+helper.getTime ();
+                RAL.clear();
+                MAL.clear();
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    RendezVous helper = ds.getValue(RendezVous.class);
+                    String sDate1 = helper.getDate() + " " + helper.getTime();
                     //current date
                     Calendar cal = Calendar.getInstance();
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SS");
+                    @SuppressLint("SimpleDateFormat")
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
                     String currDate = sdf.format(cal.getTime());
-                    Date curDate=new SimpleDateFormat ("dd-MM-yyyy hh:mm").parse(currDate);
+
                     try {
-                        Date date1=new SimpleDateFormat ("dd-MM-yyyy hh:mm").parse(sDate1);
-                        if(date1.before ( curDate )){
-                            Toast.makeText ( DashboardActivity.this , "old one " , Toast.LENGTH_SHORT ).show ( );
+                        Date curDate = sdf.parse(currDate);
+                        Date date1 = sdf.parse(sDate1);
+
+                        assert date1 != null;
+                        if (date1.before(curDate) && helper.getState()!=1) {
+                            Toast.makeText(DashboardActivity.this, "old one ", Toast.LENGTH_SHORT).show();
+                            HashMap<String,Object> hash = new HashMap<>();
+                            hash.put("state",2);
+                            rdvRef.child(helper.getId()).updateChildren(hash);
 
                         }
                     } catch (ParseException e) {
-                        e.printStackTrace ( );
+                        e.printStackTrace();
                     }
-                    RAL.add ( helper );
-                    RAdapter.notifyDataSetChanged ( );
+                    RAL.add(helper);
+                    medRef.child(helper.getDid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (!snapshot.exists()) {
+                                Toast.makeText(DashboardActivity.this, "Not Exist", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            medecin mHelper = snapshot.getValue(medecin.class);
+                            MAL.add(mHelper);
+                            RAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(DashboardActivity.this, "error: "+error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 }
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(DashboardActivity.this, "error: "+error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        } );
+        });
     }
 
     //open boocking dialog
     private void openBookingDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder ( this );
-        View view = LayoutInflater.from ( this ).inflate ( R.layout.dialog_booking , null , false );
-        AlertDialog dialog = builder.create ( );
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_booking, null, false);
+        AlertDialog dialog = builder.create();
 
-        builder.setView ( view );
-        builder.setCancelable ( true );
-        builder.show ( );
+        builder.setView(view);
+        builder.setCancelable(true);
+        builder.show();
 
     }
 
     // Views Initialization
     private void init() {
-        Srcv = findViewById ( R.id.ServiesRecycler );
-        Rrvc = findViewById ( R.id.RendezVousRecycler );
-        MenuIcon = findViewById ( R.id.MenuIcon );
-        drawerLayout = findViewById ( R.id.drawerLayout );
-        nav_view = findViewById ( R.id.nav_view );
+        Srcv = findViewById(R.id.ServiesRecycler);
+        Rrvc = findViewById(R.id.RendezVousRecycler);
+        MenuIcon = findViewById(R.id.MenuIcon);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        nav_view = findViewById(R.id.nav_view);
 
-        SAL.add ( new Service ( "protasse" , R.drawable.doctor ) );
-        SAL.add ( new Service ( "PARU & PATU" , R.drawable.doctor ) );
-        SAL.add ( new Service ( "Odontologie CNSV " , R.drawable.doctor ) );
-        SAL.add ( new Service ( "ODF" , R.drawable.doctor ) );
+        SAL.add(new Service("protasse", R.drawable.doctor));
+        SAL.add(new Service("PARU & PATU", R.drawable.doctor));
+        SAL.add(new Service("Odontologie CNSV ", R.drawable.doctor));
+        SAL.add(new Service("ODF", R.drawable.doctor));
 
 
-        SAdapter = new ServicesAdapter ( this , SAL , this );
-        RAdapter = new RendezVousAdapter ( this , RAL , this );
+        SAdapter = new ServicesAdapter(this, SAL, this);
+        RAdapter = new RendezVousAdapter(this,RAL,MAL,this);
 
         //
-        ImageView profileImg = nav_view.getHeaderView ( 0 ).findViewById ( R.id.ProfileImg );
-        TextView drawer_user_name = nav_view.getHeaderView ( 0 ).findViewById ( R.id.drawer_user_name );
-        TextView drawer_user_mail = nav_view.getHeaderView ( 0 ).findViewById ( R.id.drawer_user_mail );
+        ImageView profileImg = nav_view.getHeaderView(0).findViewById(R.id.ProfileImg);
+        TextView drawer_user_name = nav_view.getHeaderView(0).findViewById(R.id.drawer_user_name);
+        TextView drawer_user_mail = nav_view.getHeaderView(0).findViewById(R.id.drawer_user_mail);
 
-        drawer_user_name.setText ( userData.getNom ( ) + " " + userData.getPrenom ( ) );
-        drawer_user_mail.setText ( userData.getEmail ( ) );
+        drawer_user_name.setText(userData.getNom() + " " + userData.getPrenom());
+        drawer_user_mail.setText(userData.getEmail());
 
 
         // Service Recycler View
-        LinearLayoutManager LM = new LinearLayoutManager ( this , LinearLayoutManager.HORIZONTAL , false );
+        LinearLayoutManager LM = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
-        Srcv.setLayoutManager ( LM );
-        Srcv.setAdapter ( SAdapter );
+        Srcv.setLayoutManager(LM);
+        Srcv.setAdapter(SAdapter);
 
 
         // RendezVous Recycler view
-        LinearLayoutManager LMR = new LinearLayoutManager ( this );
-        Rrvc.setLayoutManager ( LMR );
-        Rrvc.setAdapter ( RAdapter );
+        LinearLayoutManager LMR = new LinearLayoutManager(this);
+        Rrvc.setLayoutManager(LMR);
+        Rrvc.setAdapter(RAdapter);
     }
 
     @Override
     public void OnServiceClick(int position) {
-        Toast.makeText ( DashboardActivity.this , "Service " + position + 1 + " Clicked !" , Toast.LENGTH_SHORT ).show ( );
-        Intent intent = new Intent ( DashboardActivity.this , MedcinListActivity.class );
-        intent.putExtra ( "service" , position );
-        startActivity ( intent );
+        Toast.makeText(DashboardActivity.this, "Service " + position + 1 + " Clicked !", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(DashboardActivity.this, MedcinListActivity.class);
+        intent.putExtra("service", position);
+        startActivity(intent);
     }
 
     @Override
     public void OnRendezVousClick(int position) {
-        Toast.makeText ( DashboardActivity.this , "RendezVous " + position + 1 + " Clicked !" , Toast.LENGTH_SHORT ).show ( );
+        Toast.makeText(DashboardActivity.this, "RendezVous " + position + 1 + " Clicked !", Toast.LENGTH_SHORT).show();
         // openBookingDialog();
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId ( )) {
+        switch (item.getItemId()) {
 
             case R.id.qrcode:
-                Intent intent2 = new Intent ( DashboardActivity.this , QrCodeActivity.class );
-                startActivity ( intent2 );
+                Intent intent2 = new Intent(DashboardActivity.this, QrCodeActivity.class);
+                startActivity(intent2);
                 break;
 
 
@@ -217,10 +242,10 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
 
                 break;
             case R.id.logout:
-                mAuth.signOut ( );
-                Intent intent = new Intent ( DashboardActivity.this , MainActivity.class );
-                intent.setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TASK );
-                startActivity ( intent );
+                mAuth.signOut();
+                Intent intent = new Intent(DashboardActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
 
 
         }
