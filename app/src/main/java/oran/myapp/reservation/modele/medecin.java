@@ -2,7 +2,7 @@ package oran.myapp.reservation.modele;
 
 public class medecin {
 
-    private String id , nom , prenom  ,email,password;
+    private String id , nom , prenom  ,email,password,assistant;
 
     private int service,room;
 
@@ -22,6 +22,14 @@ public class medecin {
         this.service = service;
         this.email = email;
         this.password = password;
+    }
+
+    public String getAssistant() {
+        return assistant;
+    }
+
+    public void setAssistant(String assistant) {
+        this.assistant = assistant;
     }
 
     public float getLat() {

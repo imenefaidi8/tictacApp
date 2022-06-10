@@ -1,9 +1,10 @@
 package oran.myapp.reservation.modele;
 
-public class messages {
-    private String msgID, SenderID, RecieverID, Message, Time;
-    private Boolean read ;
 
+public class messages {
+    private String  SenderID, RecieverID, Message, Time;
+    private Boolean read ;
+    private String msgID;
 
     public messages() {
     }
@@ -14,7 +15,7 @@ public class messages {
         RecieverID = recieverID;
         Message = message;
         Time = time;
-        read = false;
+        read = false ;
     }
 
     public Boolean getRead() {
@@ -66,3 +67,4 @@ public class messages {
     }
 
 }
+

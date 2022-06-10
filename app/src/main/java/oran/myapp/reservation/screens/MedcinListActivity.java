@@ -92,6 +92,9 @@ public class MedcinListActivity extends AppCompatActivity implements MedcinListA
     public void onMedcinMessageCLick(int position) {
      // handle messages
         Toast.makeText ( MedcinListActivity.this,"soon" ,Toast.LENGTH_SHORT).show ();
+        Intent intent = new Intent ( MedcinListActivity.this,MessageActivity.class );
+        intent.putExtra ( "senderID",MAL.get ( position ).getAssistant());
+        startActivity(intent);
     }
 
     @Override

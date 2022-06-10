@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <item
+        android:id="@+id/messages"
+        android:icon="@drawable/ic_message"
+        android:title="Profile" />
     <item
         android:id="@+id/qrcode"
         android:icon="@drawable/ic_qr_code"

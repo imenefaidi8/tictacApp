@@ -238,8 +238,9 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
                 break;
 
 
-            case R.id.profile:
-
+            case R.id.messages:
+                Intent intent3 = new Intent(DashboardActivity.this, MessageHistory.class);
+                startActivity(intent3);
                 break;
             case R.id.logout:
                 mAuth.signOut();
