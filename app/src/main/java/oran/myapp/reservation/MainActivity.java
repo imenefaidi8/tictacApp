@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,8 +30,8 @@ import oran.myapp.reservation.screens.splashScreen;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText mailEdit, PassEdit;
-    private Button LoginButton;
+    private EditText email, password;
+    private LinearLayout LoginButton;
     private TextView AddAccount;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -51,10 +52,11 @@ public class MainActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Sign in  ...");
         progressDialog.setCancelable(false);
-        mailEdit = findViewById(R.id.EmailEdit);
-        PassEdit = findViewById(R.id.passwordEdit);
-        LoginButton = findViewById(R.id.loginButton);
-        AddAccount = findViewById(R.id.AddAccount);
+        email = findViewById ( R.id.email );
+        password = findViewById ( R.id.password );
+        LoginButton = findViewById ( R.id.sign_in );
+        AddAccount = findViewById ( R.id.AddAccount );
+
 
 
         LoginButton.setOnClickListener(new View.OnClickListener() {
@@ -78,17 +80,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void loginFromFirebase() {
         progressDialog.show();
-        String Tmail = mailEdit.getText().toString();
-        String TPass = PassEdit.getText().toString();
+        String Tmail = email.getText().toString();
+        String TPass = password.getText().toString();
 
         if (Tmail.isEmpty()) {
             progressDialog.dismiss();
-            mailEdit.setError("required ! ");
+            email.setError("required ! ");
             return;
         }
         if (TPass.isEmpty()) {
             progressDialog.dismiss();
-            PassEdit.setError("required !");
+            password.setError("required !");
             return;
 
         }

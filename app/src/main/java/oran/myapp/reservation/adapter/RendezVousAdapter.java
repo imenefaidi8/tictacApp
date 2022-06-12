@@ -35,12 +35,14 @@ public class RendezVousAdapter extends RecyclerView.Adapter<RendezVousAdapter.Re
         this.listener = listener;
     }
 
+
     @NonNull
     @Override
     public RendezVousAdapter.RendezVousViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_rdv,parent,false);
         return new RendezVousViewHolder(view);
     }
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -49,24 +51,18 @@ public class RendezVousAdapter extends RecyclerView.Adapter<RendezVousAdapter.Re
         if(MAL.size()>position)
         holder.doctor.setText("Doctor : "+MAL.get(position).getNom()+" "+MAL.get(position).getPrenom());
         switch (RAL.get(position).getState()){
+
             case 2 :
                 holder.statusLinear.setBackgroundColor(Color.RED);
-                holder.date.setTextColor(Color.WHITE);
+
                 Log.e("case","2");
-            break ;
+                break ;
 
             case 1 :
-                holder.statusLinear.setBackgroundColor(Color.GREEN);
-                holder.date.setTextColor(Color.WHITE);
+                holder.statusLinear.setBackgroundColor(Color.parseColor ( "#00695C" ));
+
                 Log.e("case","1");
                 break ;
-
-            case 0 :
-                holder.statusLinear.setBackgroundColor(Color.YELLOW);
-                holder.date.setTextColor(Color.GRAY);
-                Log.e("case","0");
-                break ;
-
 
         }
     }
@@ -96,11 +92,21 @@ public class RendezVousAdapter extends RecyclerView.Adapter<RendezVousAdapter.Re
                     listener.OnRendezVousClick(getAdapterPosition());
                 }
             });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    listener.OnRendezVousLongClick(getAdapterPosition());
+                    return true;
+                }
+            });
 
         }
     }
 
+
     public interface RendezVousClickListener {
         void OnRendezVousClick(int position);
+        void OnRendezVousLongClick(int position);
     }
+
 }

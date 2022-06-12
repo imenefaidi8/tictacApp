@@ -33,6 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+import oran.myapp.reservation.Constants;
 import oran.myapp.reservation.MainActivity;
 import oran.myapp.reservation.R;
 import oran.myapp.reservation.adapter.RendezVousAdapter;
@@ -54,6 +55,7 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
     private DrawerLayout drawerLayout;
     private NavigationView nav_view;
     private RendezVousAdapter RAdapter;
+
     // Firebase Objects
     private FirebaseDatabase ROOT = FirebaseDatabase.getInstance("https://pfelicence-615fe-default-rtdb.europe-west1.firebasedatabase.app/");
     private DatabaseReference rdvRef = ROOT.getReference("RendezVous");
@@ -90,11 +92,15 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
 
     }
 
+
+
 //    RendezVous helper = snapshot.getValue ( RendezVous.class );
 //
 //                RAL.add ( helper );
 //
 //                RAdapter.notifyDataSetChanged ( );
+
+
 
     private void GetRendezVous() {
         rdvRef.orderByChild("pid").equalTo(userData.getUid()).addValueEventListener(new ValueEventListener() {
@@ -116,6 +122,8 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
                     @SuppressLint("SimpleDateFormat")
                     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
                     String currDate = sdf.format(cal.getTime());
+                    SimpleDateFormat sdf2 = new SimpleDateFormat ( "dd-MM-yyyy" );
+                    String currentDate = sdf2.format ( cal.getTime ( ) );
 
                     try {
                         Date curDate = sdf.parse(currDate);
@@ -132,6 +140,11 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+
+                    if (helper.getDate ( ).equals ( currentDate ) && helper.getState ( ) == Constants.AVAILABLE) {
+
+
+
                     RAL.add(helper);
                     medRef.child(helper.getDid()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -150,7 +163,7 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
                             Toast.makeText(DashboardActivity.this, "error: "+error.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
-
+                    }
                 }
 
             }
@@ -228,6 +241,11 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
     }
 
     @Override
+    public void OnRendezVousLongClick(int position) {
+
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
@@ -242,6 +260,14 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
                 Intent intent3 = new Intent(DashboardActivity.this, MessageHistory.class);
                 startActivity(intent3);
                 break;
+
+            case R.id.history:
+                Intent intent4 = new Intent ( DashboardActivity.this , RdvHistoryActivity.class );
+
+                startActivity ( intent4 );
+
+                break;
+
             case R.id.logout:
                 mAuth.signOut();
                 Intent intent = new Intent(DashboardActivity.this, MainActivity.class);

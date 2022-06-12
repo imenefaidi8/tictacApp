@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,7 +24,7 @@ import oran.myapp.reservation.modele.patient;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText txt_fullname, txt_username, txt_email, txt_password, textAge, textAdress, textPhone;
-    private Button btn_Registre;
+    private LinearLayout btn_Registre;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private FirebaseDatabase Root = FirebaseDatabase.getInstance("https://pfelicence-615fe-default-rtdb.europe-west1.firebasedatabase.app/");
@@ -48,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         textPhone = (EditText) findViewById(R.id.tel);
 
 
-        btn_Registre = (Button) findViewById(R.id.btn_registre);
+        btn_Registre =  findViewById(R.id.btn_registre);
 
         btn_Registre.setOnClickListener(new View.OnClickListener() {
             @Override

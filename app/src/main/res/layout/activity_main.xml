@@ -1,81 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F5F6FC"
     tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/sign_in_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:text="Login"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/fillRequired"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_in_tag"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:text="Welcome back"
+        />
+
 
     <ImageView
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_gravity="center"
-        android:src="@drawable/doctor"
-        android:layout_marginTop="64dp"/>
+        android:src="@drawable/daryssa"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/dataLayout"
+        android:layout_marginBottom="64dp"/>
 
-    <com.google.android.material.textfield.TextInputLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="#fff"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/EmailEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#fff"
-            android:hint="Email"
-            android:inputType="text"/>
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:id="@+id/dataLayout"
+        android:orientation="vertical">
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="#fff"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/passwordEdit"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#fff"
+            android:layout_height="55dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:hint="EMail"
+            app:boxStrokeColor="#0C1145"
+            app:hintTextColor="#0C1145"
+            app:startIconDrawable="@drawable/ic_mail"
+            app:startIconTint="#0C1145">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textEmailAddress"
+
+                />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:hint="password"
-            android:inputType="textPassword"/>
+            app:boxStrokeColor="#0C1145"
+            app:hintTextColor="#0C1145"
+            app:passwordToggleEnabled="true"
+            app:startIconDrawable="@drawable/ic_password"
+            app:startIconTint="#0C1145">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
 
-
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="login"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Forget password ? "
-        android:textSize="15sp"/>
-
-    <TextView
-        android:id="@+id/AddAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="64dp"
-        android:text="Dont have an account ? Create new one "
-        android:textSize="15sp"/>
+                />
 
 
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp"
+            android:text="Forgot my password ?"
+            android:textColor="#0C1145" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="If you don't have an account yet ? "
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign-up"
+                android:id="@+id/AddAccount"
+                android:textColor="#0C1145"
+
+                />
 
 
-</LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/auth_background_corners"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="0.9"
+                android:text="Sign in"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:src="@drawable/ic_bx_right_arrow" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</RelativeLayout>

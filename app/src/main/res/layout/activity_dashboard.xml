@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".screens.DashboardActivity"
-    tools:openDrawer="start">
+>
 
 
     <LinearLayout
@@ -41,30 +41,22 @@
             android:text="Appointment"
             android:textSize="20sp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="8dp">
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/RendezVousRecycler"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addRdvButton"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="#E10AA7"
-                android:src="@drawable/ic_add" />
-        </RelativeLayout>
+                android:layout_marginTop="8dp"
+                android:layout_weight="0.4"/>
 
 
+
+
+             <View
+                 android:layout_width="match_parent"
+                 android:layout_height="50dp"
+                 android:background="#023047"/>
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

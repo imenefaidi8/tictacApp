@@ -1,6 +1,7 @@
 package oran.myapp.reservation.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         if (!pos.getSenderID().equals(UserData.getUid ())) {
             holder.MessageContent.setText(pos.getMessage());
             holder.MessageTime.setText(pos.getTime());
+            holder.MessageContent.setTextColor ( Color.BLACK );
+            holder.MessageTime.setTextColor ( Color.GRAY );
+
 
 
         } else {

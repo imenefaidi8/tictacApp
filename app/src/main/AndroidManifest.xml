@@ -10,12 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Reservation">
         <activity
+            android:name=".screens.Profile"
+            android:exported="false" />
+        <activity
             android:name=".screens.MessageActivity"
             android:exported="false" />
         <activity
             android:name=".screens.MessageHistory"
             android:exported="false" />
-
+        <activity
+            android:name=".screens.RdvHistoryActivity"
+            android:exported="false" />
         <activity
             android:name=".screens.QrCodeActivity"
             android:exported="false" />

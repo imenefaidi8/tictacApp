@@ -6,6 +6,45 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".screens.MessageActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="#0C1145"
+        >
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/person"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pnu_medium"
+                android:layout_marginStart="16dp"
+                android:text="User name "
+                android:textStyle="bold"
+                android:textColor="#fff" />
+            <TextView
+                android:id="@+id/role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textColor="#fff"
+                android:text="Assitant " />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ChatRecycler"
         android:layout_width="match_parent"
@@ -33,10 +72,11 @@
             />
         <ImageView
             android:id="@+id/commentConfermation"
-            android:background="#FFC107"
+            android:background="#0C1145"
             android:padding="10dp"
             android:layout_width="50dp"
             android:layout_height="match_parent"
+            app:tint="#fff"
             android:src="@drawable/ic_baseline_send_24"/>
     </LinearLayout>
 </LinearLayout>
