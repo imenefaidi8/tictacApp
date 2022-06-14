@@ -18,11 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="52dp"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:background="#023047"/>
+            android:background="#023047" />
     </RelativeLayout>
 
 

@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:text="Message"
             style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:textColor=""
             android:fontFamily="@font/roboto"
             android:id="@+id/MessageButton"/>
 

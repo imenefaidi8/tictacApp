@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/doctor"
+        android:icon="@drawable/app_iconss"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/doctor"
+        android:roundIcon="@drawable/app_iconss"
         android:supportsRtl="true"
         android:theme="@style/Theme.Reservation">
         <activity
