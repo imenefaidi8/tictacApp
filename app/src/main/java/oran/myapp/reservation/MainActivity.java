@@ -3,6 +3,7 @@ package oran.myapp.reservation;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,8 +14,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText email, password;
     private LinearLayout LoginButton;
-    private TextView AddAccount;
+    private TextView AddAccount,forgetPassword;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private ProgressDialog progressDialog;
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById ( R.id.password );
         LoginButton = findViewById ( R.id.sign_in );
         AddAccount = findViewById ( R.id.AddAccount );
+        forgetPassword = findViewById ( R.id.forgetPassword );
 
 
 
@@ -73,6 +78,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             openResetBottomSheet();
             }
         });
     }
@@ -139,6 +151,59 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+
+    private void openResetBottomSheet(){
+        BottomSheetDialog bottomDialog = new BottomSheetDialog(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.reset_password,null,false);
+        Button cancel , reset;
+        EditText resetpasswordEdit;
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Reset....");
+        progressDialog.setCancelable(false);
+        cancel=view.findViewById(R.id.cancel);
+        reset = view.findViewById(R.id.reset);
+        resetpasswordEdit = view.findViewById(R.id.resetpasswordEdit);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomDialog.dismiss();
+            }
+        });
+
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressDialog.show();
+                String email = resetpasswordEdit.getText().toString();
+                if(email.isEmpty()){
+                    progressDialog.dismiss();
+                    resetpasswordEdit.setError("required ! ");
+
+                    return;
+                }
+                mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(!task.isSuccessful()){
+                            Toast.makeText(MainActivity.this,"error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                            return;
+                        }
+                        progressDialog.dismiss();
+                        Toast.makeText(MainActivity.this, "Verifier votre email maintenant ! ", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+            }
+        });
+        bottomDialog.setCancelable(false);
+        bottomDialog.setContentView(view);
+        bottomDialog.show();
 
     }
 }

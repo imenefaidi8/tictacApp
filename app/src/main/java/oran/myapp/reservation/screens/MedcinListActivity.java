@@ -67,12 +67,9 @@ public class MedcinListActivity extends AppCompatActivity implements MedcinListA
                 if(!snapshot.exists ()){
                     Toast.makeText ( MedcinListActivity.this , "is Empty", Toast.LENGTH_SHORT ).show ( );
                     return;
-
                 }
                      MAL.clear();
                 for(DataSnapshot ds : snapshot.getChildren ()){
-
-
                     medecin helper= ds.getValue (medecin.class);
                     assert helper != null;
                     if(!helper.getAssistant().equals("none")){

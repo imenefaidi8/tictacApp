@@ -102,6 +102,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="32dp"
             android:text="Forgot my password ?"
+            android:id="@+id/forgetPassword"
             android:textColor="#0C1145" />
 
         <LinearLayout

@@ -72,6 +72,7 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
     // Medicament
     // Recycler view tools
     private RecyclerView medRecycler ;
+    private  TextView userName,userAge;
 
     private MedicamentAdapter mAdapter;
     @Override
@@ -99,9 +100,9 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
         GetRendezVous();
 
     }
+
+
     private void getClientData(){
-
-
 
                 usersRef.child(userData.getUid()).child("dossierMedical").child("ordenance")
                         .child("medicaments").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -115,6 +116,9 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
                         for(DataSnapshot ds : snapshot.getChildren()){
                             MALD.add(ds.getValue(Medicament.class));
                         }
+
+                        userName.setText(userData.getNom());
+                        userAge.setText(userData.getAge());
 
                         mAdapter.notifyDataSetChanged();
                     }
@@ -210,6 +214,8 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
         });
     }
 
+
+
     //open boocking dialog
     private void openBookingDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -222,6 +228,8 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
 
     }
 
+
+
     // Views Initialization
     private void init() {
         Srcv = findViewById(R.id.ServiesRecycler);
@@ -229,6 +237,8 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
         MenuIcon = findViewById(R.id.MenuIcon);
         drawerLayout = findViewById(R.id.drawerLayout);
         nav_view = findViewById(R.id.nav_view);
+        userName = findViewById(R.id.userName);
+        userAge = findViewById(R.id.userAge);
         medRecycler = findViewById(R.id.medRecycler);
 
         SAL.add(new Service("protasse", R.drawable.doctor));
@@ -270,6 +280,8 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
 
         getClientData();
     }
+
+
 
     @Override
     public void OnServiceClick(int position) {
@@ -324,4 +336,6 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
 
         return true;
     }
+
+
 }
