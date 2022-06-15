@@ -36,8 +36,10 @@ import java.util.HashMap;
 import oran.myapp.reservation.Constants;
 import oran.myapp.reservation.MainActivity;
 import oran.myapp.reservation.R;
+import oran.myapp.reservation.adapter.MedicamentAdapter;
 import oran.myapp.reservation.adapter.RendezVousAdapter;
 import oran.myapp.reservation.adapter.ServicesAdapter;
+import oran.myapp.reservation.modele.Medicament;
 import oran.myapp.reservation.modele.RendezVous;
 import oran.myapp.reservation.modele.Service;
 import oran.myapp.reservation.modele.medecin;
@@ -50,6 +52,7 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
     private ArrayList<Service> SAL = new ArrayList<>();
     private ArrayList<RendezVous> RAL = new ArrayList<>();
     private ArrayList<medecin> MAL = new ArrayList<>();
+    private ArrayList<Medicament> MALD = new ArrayList<>();
     private ServicesAdapter SAdapter;
     private ImageView MenuIcon;
     private DrawerLayout drawerLayout;
@@ -60,12 +63,17 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
     private FirebaseDatabase ROOT = FirebaseDatabase.getInstance("https://pfelicence-615fe-default-rtdb.europe-west1.firebasedatabase.app/");
     private DatabaseReference rdvRef = ROOT.getReference("RendezVous");
     private DatabaseReference medRef = ROOT.getReference("medcin");
+    private DatabaseReference usersRef = ROOT.getReference ( "users" );
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     // User Data
     private splashScreen inst = splashScreen.getInst();
     private patient userData = inst.GetUserData();
+    // Medicament
+    // Recycler view tools
+    private RecyclerView medRecycler ;
 
+    private MedicamentAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +99,34 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
         GetRendezVous();
 
     }
+    private void getClientData(){
 
+
+
+                usersRef.child(userData.getUid()).child("dossierMedical").child("ordenance")
+                        .child("medicaments").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(!snapshot.exists()){
+                            Toast.makeText(DashboardActivity.this, "User not found ! ", Toast.LENGTH_SHORT).show();
+                            return ;
+                        }
+
+                        for(DataSnapshot ds : snapshot.getChildren()){
+                            MALD.add(ds.getValue(Medicament.class));
+                        }
+
+                        mAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+    }
 
 
 //    RendezVous helper = snapshot.getValue ( RendezVous.class );
@@ -194,6 +229,7 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
         MenuIcon = findViewById(R.id.MenuIcon);
         drawerLayout = findViewById(R.id.drawerLayout);
         nav_view = findViewById(R.id.nav_view);
+        medRecycler = findViewById(R.id.medRecycler);
 
         SAL.add(new Service("protasse", R.drawable.doctor));
         SAL.add(new Service("PARU & PATU", R.drawable.doctor));
@@ -224,6 +260,15 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
         LinearLayoutManager LMR = new LinearLayoutManager(this);
         Rrvc.setLayoutManager(LMR);
         Rrvc.setAdapter(RAdapter);
+
+
+        mAdapter = new MedicamentAdapter(this,MALD);
+
+        LinearLayoutManager LM2 = new LinearLayoutManager(this);
+        medRecycler.setLayoutManager(LM2);
+        medRecycler.setAdapter(mAdapter);
+
+        getClientData();
     }
 
     @Override

@@ -20,52 +20,33 @@
         <entry key="..\:/K-A-G-D/PGM/androidProject/tictacApp/app/src/main/res/layout/message_hostory_item_list.xml" value="0.1" />
         <entry key="..\:/K-A-G-D/PGM/androidProject/tictacApp/app/src/main/res/layout/toolbar.xml" value="0.25" />
         <entry key="..\:/K-A-G-D/PGM/androidProject/tictacApp/app/src/main/res/menu/drawer_items.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/NANO CONSULTING/AndroidStudioProjects/tictacApp/app/src/main/res/drawable-v24/ic_medicine.xml" value="0.152" />
+        <entry key="..\:/Users/NANO CONSULTING/AndroidStudioProjects/tictacApp/app/src/main/res/layout/activity_dashboard.xml" value="0.2388888888888889" />
+        <entry key="..\:/Users/NANO CONSULTING/AndroidStudioProjects/tictacApp/app/src/main/res/layout/list_item_medcin_list.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/NANO CONSULTING/AndroidStudioProjects/tictacApp/app/src/main/res/layout/list_item_medicament.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/NANO CONSULTING/AndroidStudioProjects/tictacApp/app/src/main/res/layout/toolbar.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2415" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/auth_background_corners.xml" value="0.1655" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/button_rounded.xml" value="0.241" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/curren_msg_shape.xml" value="0.1555" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_add.xml" value="0.1965" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.1965" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_bx_right_arrow.xml" value="0.1965" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_history.xml" value="0.1555" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2415" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_location.xml" value="0.1965" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_logout.xml" value="0.1965" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_mail.xml" value="0.1965" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_menu.xml" value="0.1965" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_message.xml" value="0.1965" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_password.xml" value="0.1655" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_person.xml" value="0.1965" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_person_outlined.xml" value="0.1965" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_phone.xml" value="0.1655" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_qr_code.xml" value="0.1965" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/ic_round_read.xml" value="0.1965" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/drawable/poster_msg_shape.xml" value="0.1555" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/font/roboto.xml" value="0.284375" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/font/roboto_medium.xml" value="0.284375" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/activity_dashboard.xml" value="0.2" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/activity_medcin_list.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/activity_message.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/activity_message_history2.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/activity_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/activity_qr_code.xml" value="0.24139492753623187" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/activity_rdv_history.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/activity_register.xml" value="0.176" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/activity_splash_screen.xml" value="0.223731884057971" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/dialog_booking.xml" value="0.264" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/drawer_header.xml" value="0.264" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/list_item_medcin_list.xml" value="0.4" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/list_item_messages.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/list_item_rdv.xml" value="0.264" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/list_item_services.xml" value="0.2" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/message_hostory_item_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/list_item_medcin_list.xml" value="0.176" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/list_item_rdv.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/list_item_services.xml" value="0.223731884057971" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/layout/toolbar.xml" value="0.223731884057971" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Reservation/app/src/main/res/menu/drawer_items.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
