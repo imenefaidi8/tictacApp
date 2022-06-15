@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import oran.myapp.reservation.MainActivity;
 import oran.myapp.reservation.R;
 import oran.myapp.reservation.modele.patient;
 
@@ -26,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText txt_fullname, txt_username, txt_email, txt_password, textAge, textAdress, textPhone;
     private LinearLayout btn_Registre;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private TextView AddAccount;
 
     private FirebaseDatabase Root = FirebaseDatabase.getInstance("https://pfelicence-615fe-default-rtdb.europe-west1.firebasedatabase.app/");
     private DatabaseReference usersRef = Root.getReference("users");
@@ -50,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         btn_Registre =  findViewById(R.id.btn_registre);
+        AddAccount =  findViewById(R.id.AddAccount);
 
         btn_Registre.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +64,12 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        AddAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+            }
+        });
     }
 
     // method bach ndiru create account
