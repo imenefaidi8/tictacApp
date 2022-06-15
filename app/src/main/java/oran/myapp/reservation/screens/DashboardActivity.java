@@ -166,7 +166,7 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
 
                         assert date1 != null;
                         if (date1.before(curDate) && helper.getState()!=1) {
-                            Toast.makeText(DashboardActivity.this, "old one ", Toast.LENGTH_SHORT).show();
+                       //     Toast.makeText(DashboardActivity.this, "old one ", Toast.LENGTH_SHORT).show();
                             HashMap<String,Object> hash = new HashMap<>();
                             hash.put("state",2);
                             rdvRef.child(helper.getId()).updateChildren(hash);
