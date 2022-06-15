@@ -59,7 +59,7 @@ public class MedcinListActivity extends AppCompatActivity implements MedcinListA
 
     private void getDataFromFB(int service) {
 
-        medcinRef.orderByChild ( "service" ).equalTo(service).addListenerForSingleValueEvent ( new ValueEventListener ( ) {
+        medcinRef.orderByChild ( "service" ).equalTo(service).addValueEventListener ( new ValueEventListener ( ) {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -69,12 +69,17 @@ public class MedcinListActivity extends AppCompatActivity implements MedcinListA
                     return;
 
                 }
-
+                     MAL.clear();
                 for(DataSnapshot ds : snapshot.getChildren ()){
 
+
                     medecin helper= ds.getValue (medecin.class);
-                    MAL.add ( helper );
-                    mAdapter.notifyDataSetChanged ();
+                    assert helper != null;
+                    if(!helper.getAssistant().equals("none")){
+                        MAL.add ( helper );
+                        mAdapter.notifyDataSetChanged ();
+                    }
+
 
                 }
 
