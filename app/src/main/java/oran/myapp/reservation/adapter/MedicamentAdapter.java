@@ -35,7 +35,7 @@ public class MedicamentAdapter extends RecyclerView.Adapter<MedicamentAdapter.Me
     @Override
     public void onBindViewHolder(@NonNull MedicamentViewHolder holder, int position) {
         holder.name.setText(MAL.get(position).getNom());
-        holder.id.setText("#"+MAL.get(position).getId().substring(0,5)+"...");
+        holder.id.setText("#"+MAL.get(position).getDate());
     }
 
     @Override

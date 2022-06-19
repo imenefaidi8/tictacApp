@@ -126,11 +126,43 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
                             Toast.makeText(DashboardActivity.this, "User not found ! ", Toast.LENGTH_SHORT).show();
                             return ;
                         }
-                        getMedcin();
 
+                        getMedcin();
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                        ArrayList<Medicament> MID = new ArrayList<>();
                         for(DataSnapshot ds : snapshot.getChildren()){
-                            MALD.add(ds.getValue(Medicament.class));
+                            MALD.add(0,ds.getValue(Medicament.class));
                         }
+                     //   MALD.add(MID.get(0));
+
+                        Medicament helper;
+                        // Simple sorting algorithme
+                        for(int i = 0 ; i<(MALD.size()-1);i++){
+
+                            for(int j = i+1 ; j<MALD.size();j++) {
+                                try {
+
+                                    Date mid = sdf.parse(MALD.get(j).getDate());
+                                    Date mald = sdf.parse(MALD.get(i).getDate());
+
+                                    if(mid.after(mald)){
+                                        helper=MALD.get(i);
+                                        MALD.remove(i);
+                                        MALD.add(i,MALD.get(j));
+                                        MALD.remove(j);
+                                        MALD.add(j,helper);
+
+                                    }
+
+
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+
+                        }
+
 
 
 
@@ -190,7 +222,7 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
                             rdvRef.child(helper.getId()).updateChildren(hash);
 
                         }
-                        if (date1.after(curDate) || helper.getDate ( ).equals ( currentDate )) {
+                        if ((date1.after(curDate) || helper.getDate ( ).equals ( currentDate ) )  && helper.getState()==Constants.AVAILABLE) {
 
                             RAL.add(helper);
                             medRef.child(helper.getDid()).addListenerForSingleValueEvent(new ValueEventListener() {
