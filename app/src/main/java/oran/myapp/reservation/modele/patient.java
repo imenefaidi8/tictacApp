@@ -3,6 +3,15 @@ package oran.myapp.reservation.modele;
 public class patient {
     private String uid ,nom, prenom,addresse,email,password;
     private String age,telephone , photoUrl;
+    private DossierMedical dossierMedical;
+
+    public DossierMedical getDossierMedical() {
+        return dossierMedical;
+    }
+
+    public void setDossierMedical(DossierMedical dossierMedical) {
+        this.dossierMedical = dossierMedical;
+    }
 
     public patient() {
     }

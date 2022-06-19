@@ -73,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
             app:cardCornerRadius="12dp"
+            android:visibility="gone"
             android:id="@+id/DossierCard"
 
             app:cardElevation="6dp">

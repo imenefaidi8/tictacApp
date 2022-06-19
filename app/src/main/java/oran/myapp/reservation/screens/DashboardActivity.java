@@ -3,6 +3,7 @@ package oran.myapp.reservation.screens;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -58,6 +60,7 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
     private DrawerLayout drawerLayout;
     private NavigationView nav_view;
     private RendezVousAdapter RAdapter;
+    private CardView DossierCard;
 
     // Firebase Objects
     private FirebaseDatabase ROOT = FirebaseDatabase.getInstance("https://pfelicence-615fe-default-rtdb.europe-west1.firebasedatabase.app/");
@@ -72,7 +75,7 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
     // Medicament
     // Recycler view tools
     private RecyclerView medRecycler ;
-    private  TextView userName,userAge;
+    private  TextView userName,userAge,dossierNote,Date,DocName;
 
     private MedicamentAdapter mAdapter;
     @Override
@@ -112,13 +115,13 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
                             Toast.makeText(DashboardActivity.this, "User not found ! ", Toast.LENGTH_SHORT).show();
                             return ;
                         }
+                        getMedcin();
 
                         for(DataSnapshot ds : snapshot.getChildren()){
                             MALD.add(ds.getValue(Medicament.class));
                         }
 
-                        userName.setText(userData.getNom());
-                        userAge.setText(userData.getAge());
+
 
                         mAdapter.notifyDataSetChanged();
                     }
@@ -161,7 +164,7 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
                     @SuppressLint("SimpleDateFormat")
                     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
                     String currDate = sdf.format(cal.getTime());
-                    SimpleDateFormat sdf2 = new SimpleDateFormat ( "dd-MM-yyyy" );
+                    SimpleDateFormat sdf2 = new SimpleDateFormat ( "dd-MM-yyyy hh:mm" );
                     String currentDate = sdf2.format ( cal.getTime ( ) );
 
                     try {
@@ -176,33 +179,32 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
                             rdvRef.child(helper.getId()).updateChildren(hash);
 
                         }
+                        if (date1.after(curDate) || helper.getDate ( ).equals ( currentDate )) {
+
+                            RAL.add(helper);
+                            medRef.child(helper.getDid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (!snapshot.exists()) {
+                                        Toast.makeText(DashboardActivity.this, "Not Exist", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                    medecin mHelper = snapshot.getValue(medecin.class);
+                                    MAL.add(mHelper);
+                                    RAdapter.notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(DashboardActivity.this, "error: "+error.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        }
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
 
-                    if (helper.getDate ( ).equals ( currentDate ) && helper.getState ( ) == Constants.AVAILABLE) {
-
-
-
-                    RAL.add(helper);
-                    medRef.child(helper.getDid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (!snapshot.exists()) {
-                                Toast.makeText(DashboardActivity.this, "Not Exist", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            medecin mHelper = snapshot.getValue(medecin.class);
-                            MAL.add(mHelper);
-                            RAdapter.notifyDataSetChanged();
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(DashboardActivity.this, "error: "+error.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    }
                 }
 
             }
@@ -210,6 +212,25 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(DashboardActivity.this, "error: "+error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getMedcin(){
+        medRef.child(userData.getDossierMedical().getDid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.exists()) return;
+
+                    medecin doc = snapshot.getValue(medecin.class);
+
+                    DocName.setText("Dr."+doc.getNom());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
@@ -239,7 +260,26 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
         nav_view = findViewById(R.id.nav_view);
         userName = findViewById(R.id.userName);
         userAge = findViewById(R.id.userAge);
+        dossierNote = findViewById(R.id.dossierNote);
+        Date = findViewById(R.id.Date);
+        DocName = findViewById(R.id.DocName);
         medRecycler = findViewById(R.id.medRecycler);
+        DossierCard = findViewById(R.id.DossierCard);
+
+        userName.setText(userData.getNom());
+        userAge.setText(userData.getAge());
+        Log.e("userData",userData.getUid());
+        if(userData.getDossierMedical()!=null){
+            DossierCard.setVisibility(View.VISIBLE);
+            dossierNote.setText(userData.getDossierMedical().getNote());
+            Date.setText("#"+userData.getDossierMedical().getDate());
+
+        }else {
+
+
+        }
+
+
 
         SAL.add(new Service("protasse", R.drawable.doctor));
         SAL.add(new Service("PARU & PATU", R.drawable.doctor));
