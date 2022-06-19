@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,6 +33,7 @@ import java.util.Date;
 
 import oran.myapp.reservation.R;
 import oran.myapp.reservation.adapter.MessageAdapter;
+import oran.myapp.reservation.modele.Assistant;
 import oran.myapp.reservation.modele.messages;
 import oran.myapp.reservation.modele.patient;
 
@@ -40,10 +43,12 @@ public class MessageActivity extends AppCompatActivity {
     private EditText MsgWritting;
     private ImageView SendButton;
     private RecyclerView RCV;
+    private TextView Username;
     private final ArrayList<messages> MAL = new ArrayList<>();
     private MessageAdapter messageAdapter;
     private FirebaseDatabase ROOT = FirebaseDatabase.getInstance("https://pfelicence-615fe-default-rtdb.europe-west1.firebasedatabase.app/");
     private final DatabaseReference MsgRef = ROOT.getReference("messages");
+    private final DatabaseReference assisRef = ROOT.getReference("Assistant");
 
 
     //User Data
@@ -78,6 +83,24 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+        assisRef.child(PosterID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    Toast.makeText(MessageActivity.this, "Not Exist", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Assistant helper = snapshot.getValue(Assistant.class);
+                Username.setText(helper.getNom()+" "+helper.getPrenom());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MessageActivity.this, "error: "+error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
 
@@ -90,6 +113,7 @@ public class MessageActivity extends AppCompatActivity {
     private void initialize() {
         MsgWritting = findViewById(R.id.commentSection);
         SendButton = findViewById(R.id.commentConfermation);
+        Username = findViewById(R.id.Username);
 
         RCV = findViewById(R.id.ChatRecycler);
 

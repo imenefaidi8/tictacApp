@@ -1,12 +1,15 @@
 package oran.myapp.reservation.screens;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +23,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -73,11 +79,16 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
     private splashScreen inst = splashScreen.getInst();
     private patient userData = inst.GetUserData();
     // Medicament
+
+
+
     // Recycler view tools
     private RecyclerView medRecycler ;
     private  TextView userName,userAge,dossierNote,Date,DocName;
 
     private MedicamentAdapter mAdapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -339,8 +350,44 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
 
     @Override
     public void OnRendezVousLongClick(int position) {
+        openResetBottomSheet(position);
+    }
+
+    private void openResetBottomSheet(int positino){
+        BottomSheetDialog bottomDialog = new BottomSheetDialog(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.bottom_sheet_delete_rdc,null,false);
+        Button cancel , reset;
+
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("suppression....");
+        progressDialog.setCancelable(false);
+        cancel=view.findViewById(R.id.cancel);
+        reset = view.findViewById(R.id.reset);
+
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomDialog.dismiss();
+            }
+        });
+
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               rdvRef.child(RAL.get(positino).getId()).child("state").setValue(2);
+               MAL.remove(positino);
+               RAL.remove(positino);
+
+
+            }
+        });
+        bottomDialog.setCancelable(false);
+        bottomDialog.setContentView(view);
+        bottomDialog.show();
 
     }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -370,6 +417,7 @@ public class DashboardActivity extends AppCompatActivity implements ServicesAdap
                 Intent intent = new Intent(DashboardActivity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+                finish();
 
 
         }
