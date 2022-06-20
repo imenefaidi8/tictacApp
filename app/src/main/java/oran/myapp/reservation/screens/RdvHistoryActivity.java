@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,32 +66,53 @@ public class RdvHistoryActivity extends AppCompatActivity implements  RendezVous
                     Toast.makeText ( RdvHistoryActivity.this , "Not Exist" , Toast.LENGTH_SHORT ).show ( );
                     return;
                 }
-                Date date = Calendar.getInstance ( ).getTime ( );
-                SimpleDateFormat sdf = new SimpleDateFormat ( "dd-MM-yyyy" );
-                String currentDate = sdf.format ( date );
+
 
                 RAL.clear ( );
                 for (DataSnapshot ds : snapshot.getChildren ( )) {
                     RendezVous helper = ds.getValue ( RendezVous.class );
 
-                        RAL.add ( helper );
-                        userRef.child ( helper.getPid ( ) ).addListenerForSingleValueEvent ( new ValueEventListener ( ) {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (!snapshot.exists ( )) {
-                                    Toast.makeText ( RdvHistoryActivity.this , "Not Exist" , Toast.LENGTH_SHORT ).show ( );
-                                    return;
-                                }
-                                medecin mHelper = snapshot.getValue ( medecin.class );
-                                MAL.add ( mHelper );
-                                RAdapter.notifyDataSetChanged ( );
-                            }
+                    String sDate1 = helper.getDate() + " " + helper.getTime();
+                    //current date
+                    Calendar cal = Calendar.getInstance();
+                    @SuppressLint("SimpleDateFormat")
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+                    String currDate = sdf.format(cal.getTime());
+                    SimpleDateFormat sdf2 = new SimpleDateFormat ( "dd-MM-yyyy hh:mm" );
+                    String currentDate = sdf2.format ( cal.getTime ( ) );
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText ( RdvHistoryActivity.this , "error: " + error.getMessage ( ) , Toast.LENGTH_SHORT ).show ( );
-                            }
-                        } );
+
+                    try {
+                        Date curDate = sdf.parse(currDate);
+                        Date date1 = sdf.parse(sDate1);
+                        assert date1 != null;
+                        if(date1.before(curDate)){
+                            RAL.add ( helper );
+                            userRef.child ( helper.getPid ( ) ).addListenerForSingleValueEvent ( new ValueEventListener ( ) {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (!snapshot.exists ( )) {
+                                        Toast.makeText ( RdvHistoryActivity.this , "Not Exist" , Toast.LENGTH_SHORT ).show ( );
+                                        return;
+                                    }
+                                    medecin mHelper = snapshot.getValue ( medecin.class );
+                                    MAL.add ( mHelper );
+                                    RAdapter.notifyDataSetChanged ( );
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText ( RdvHistoryActivity.this , "error: " + error.getMessage ( ) , Toast.LENGTH_SHORT ).show ( );
+                                }
+                            } );
+
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+
+
 
 
                 }
